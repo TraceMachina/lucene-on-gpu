@@ -1,8 +1,42 @@
+<img width="1176" alt="image" src="https://private-user-images.githubusercontent.com/2353608/352786423-ed115296-b080-4c6b-a694-a33f920cb84b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjIxMzQ0NDIsIm5iZiI6MTcyMjEzNDE0MiwicGF0aCI6Ii8yMzUzNjA4LzM1Mjc4NjQyMy1lZDExNTI5Ni1iMDgwLTRjNmItYTY5NC1hMzNmOTIwY2I4NGIucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDcyOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA3MjhUMDIzNTQyWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YjU5OWMxMGE2ZDI0NTgyNzFmMDIyOTNjOGE5YTYwZTZlNzlhODEwYzMzZDk5MTliZDY3NzY0NTBiNzFhOGQxNSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.BVqYEa0AR6MJvSB4DJGc0lJ25vkoExrt3XniKgoNRoI">
+
 # Lucene CuVS Integration
 
-This is an integration for [CuVS](https://github.com/rapidsai/cuvs), GPU
-accelerated vector search library from NVIDIA (formerly part of [Raft](https://github.com/rapidsai/raft)),
-into [Apache Lucene](https://github.com/apache/lucene).
+This repo shows an end-to-end way to get started with GPU-accelerated vector search from NVIDIA's [Rapids AI CuVS, formerly raft](https://github.com/rapidsai/cuvs) using NVIDIA's [brev.dev](https://brev.dev/) for one-click deploy GPUs, Apache Lucene [Apache Lucene](https://github.com/apache/lucene), and Trace Machina's [NativeLink](NativeLink) to enable users to target specialized hardware. 
+
+# Tutorial
+
+This is a quick tutorial to get started with GPU-accelerated Lucene.
+
+Pre-requisites:
+* a [brev.dev](https://brev.dev) account with credits for GPUs (let me know if you need help)
+* a GitHub account
+
+
+### Bootstrap Brev's NVIDIA GPUs
+
+1. Log into your [brev.dev](https://brev.dev) account.
+2. Select "New" in the upper-right <br>
+3. Click "Container Mode" (in production, please use VM mode)
+4. Scroll down to the bottom right and select NVIDIA Rapids
+5. Select the [NVIDIA T4](https://www.NVIDIA.com/en-us/data-center/tesla-t4/) It's plenty. A similarly sized instance from another manufacturer would get smoked in this evaluation.
+6. Deploy 
+7. Click this link to get your instance in the browser <br> (there are other ways but this is the easiest and the least amount of drawing I need to do to obscure details) 
+8. Look down and click the "Terminal" option
+
+### Set Up the Instance
+
+Sorry, but we need to set up Java. 😅
+
+```shell
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+# TODO there will be some command printed after the installation to refresh the shell.
+git clone git clone https://github.com/TraceMachina/lucene-on-gpu
+cd lucene on gpu
+nix develop
+bazel run lucene
+```
+Again, text me at 510-495-5257 if you have any questions.
 
 ## 🏛️ Architecture
 
@@ -59,8 +93,8 @@ source ~/.bashrc
 Now clone `lucene-cuvs`, `cd` into it and run `direnv allow`:
 
 ```bash
-git clone git@github.com/SearchScale/lucene-cuvs
-cd lucene-cuvs
+git clone git@github.com/TraceMachina/lucene-on-gpus
+cd lucene-on-gpus
 direnv allow
 ```
 
@@ -117,8 +151,14 @@ and corresponding KnnVectorsWriter and KnnVectorsReader for tighter integration.
 
 ## 🌱 Contributors
 
+* Aaron Siddhartha Mondal, Trace Machina
+* Blake Hatch, Trace Machina
+* Marcus Eagan, Trace Machina & Committer, Apache Solr (Later Heavy Lifting)
+* Dr. Andrew Shipley, Trace Machina
+* Tim Potter, Trace Machina & Committer, Apache Lucene & Solr
 * Vivek Narang, SearchScale
 * Ishan Chattopadhyaya, SearchScale & Committer, Apache Lucene & Solr
+* Corey Nolet, NVIDIA
+* Puneet Ahuja, SearchScale
 * Kishore Angani, SearchScale
-* Noble Paul, SearchScale & Committer, Apache Lucene & Solr
-* Aaron Siddhartha Mondal, TraceMachina & Committer, NativeLink & LLVM
+* Noble Paul, SearchScale & Committer, Apache Lucene & Solrgi 
